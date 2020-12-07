@@ -8,3 +8,8 @@ body,
 html {
   height: 100%;
 }
+
+.legendcolorbox {
+  height: 20px;
+  width: 20px;
+}
