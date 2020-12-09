@@ -7,7 +7,7 @@ var queryUrl =
 //   "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
 
 // Perform a GET request to the query URL
-https: d3.json(queryUrl, function (data) {
+d3.json(queryUrl, function (data) {
   // Once we get a response, create a geoJSON layer containing the features array and add a popup for each marker
   // then, send the layer to the createMap() function.
   console.log(data);
@@ -18,16 +18,16 @@ https: d3.json(queryUrl, function (data) {
       console.log(feature);
 
       var color;
-      if (feature.properties.sig < 200) {
+      if (feature.properties.sig < 100) {
         color = "#00ff00";
-      } else if (feature.properties.sig < 400) {
+      } else if (feature.properties.sig < 200) {
         color = "#7fff00";
-      } else if (feature.properties.sig < 600) {
+      } else if (feature.properties.sig < 300) {
         color = "#ffff00";
-      } else if (feature.properties.sig < 800) {
+      } else if (feature.properties.sig < 400) {
         color = "#ff7f00";
       } else {
-        color = "ff0000";
+        color = "#ff0000";
       }
 
       return L.circleMarker(latlng, {
@@ -100,13 +100,18 @@ function createMap(earthquakes) {
   var legend = L.control({ position: "bottomright" });
   legend.onAdd = function (map) {
     var div = L.DomUtil.create("div", "legend");
-    var limits = ["1", "2", "3", "4", "5", "6"];
-    var colors = ["#00ff00", "white", "blue", "green", "pink", "yellow"];
+    var limits = ["0 - 100", "100 - 200", "200 - 300", "300 - 400", "400+"];
+    var colors = ["#00ff00", "#7fff00", "#ffff00", "#ff7f00", "#ff0000"];
     var labels = [];
     limits.forEach(function (limit, index) {
-      labels.push(`<div class="legendcolorbox" style="background-color:${colors[index]}">
-           </div><h5>${limit}</h5>`);
+      labels.push(`
+          <div class="legendwrap" >
+           <div class="legendcolorbox" style="background-color:${colors[index]}"></div>
+           <h5>${limit}</h5>
+          </div>   
+      `);
     });
+    div.innerHTML += "<h5 class = 'legendtitle'> Earthquake Significance</h5>";
     div.innerHTML += labels.join("");
     return div;
   };

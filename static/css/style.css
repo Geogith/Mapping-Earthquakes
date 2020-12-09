@@ -1,4 +1,4 @@
-body {
+body, h5 {
   padding: 0;
   margin: 0;
 }
@@ -12,4 +12,17 @@ html {
 .legendcolorbox {
   height: 20px;
   width: 20px;
+  margin-right: 8px;
+}
+.legendwrap {
+  display: flex;
+  align-items: center;
+}
+.legend.leaflet-control {
+  padding: 16px;
+  background: white;
+
+}
+.legendtitle {
+  margin-bottom: 8px;
 }
