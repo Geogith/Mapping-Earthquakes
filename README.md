@@ -1,4 +1,4 @@
-# leaflet-challenge
+# Mapping Earthquakes
 
 Import & Visualize an Earthquake data set: 
 
